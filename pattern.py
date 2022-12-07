@@ -1,5 +1,22 @@
 import re
 
+
+def normalize(s):
+	replacements = (
+        ("á", "a"),
+        ("é", "e"),
+        ("í", "i"),
+        ("ó", "o"),
+        ("ú", "u"),
+		(' ', ''),
+		(',', ''),)
+
+	for a, b in replacements:
+		s = s.replace(a, b).replace(a.upper(), b.upper())
+
+	return s
+
+
 def find_pattern(txt: str):
     # 'lenght' se usara como limite
 	lenght = len(txt)
@@ -37,14 +54,14 @@ def find_pattern(txt: str):
 
 	# de 'patterns_index' 'pattern_max' obtendra el index del patron que mas se repite
 	pattern_max = patterns_index.index(max(patterns_index))
+	veces = len(unique_list[pattern_max])
 
-	print(f'De {txt}')
-	print(f"el patron que se repite {len(unique_list[pattern_max])} veces siendo '{unique_list[pattern_max][0]}' el patron \n")
- 
-# agregas cualquier string a la lista
-txt_list = ['daddaddaddadddddaddddad','GEEKSFORGEEKS']
+	if veces >= 2:
+		print(f'De {txt}')
+		print(f"el patron que se repite {veces} veces siendo '{unique_list[pattern_max][0]}' el patron \n")
+	else:
+		print('no hay patron')
 
-for i in txt_list:
-    find_pattern(i)
-    
-#kiss <3/
+	
+consulta = input('escribe una cadena de caracteres: ')
+find_pattern(normalize(consulta))
